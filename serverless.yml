@@ -1,0 +1,35 @@
+service: datadog-experiment-express-lambda
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: sa-east-1
+  tracing:
+    apiGateway: true
+    lambda: true
+  logs:
+    restApi: true
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: ANY
+          authorizer: authorizerFunc
+      - http:
+          path: /{any+}
+          method: ANY
+          authorizer: authorizerFunc
+  authorizerFunc:
+    handler: authorizer.handler
+
+
+plugins:
+  - serverless-plugin-datadog
+
+custom:
+  datadog:
+    addExtension: true
+    apiKey: ${env:DD_API_KEY}

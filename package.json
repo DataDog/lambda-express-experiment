@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "serverless-plugin-datadog": "^3.0.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "serverless-http": "^2.7.0"
+  }
+}
